@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
 import { useState, memo, useContext, useCallback } from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image, StatusBar, TouchableOpacity } from 'react-native';
 import CustomTextInput from '../../components/customInput';
 import SaveBuuton from '../../components/saveBtn';
 import { GlobalDataContext } from '../../contexts/context';
 import { averageFemaleBodyURL, verticalLineURL } from '../../constans/imagePath';
-import BackIcon from '../../assets/icons/BackIcon.svg';
 import styles from './style';
 
 function MeasurementsScreen({ navigation }) {
@@ -15,35 +14,45 @@ function MeasurementsScreen({ navigation }) {
     const handleSave = useCallback(() => {
         setData({ ...data, height });
         navigation.navigate('DevicePosition');
-    }, [])
+    }, [height]);
+
+    const goBack = () => navigation.navigate('Gender');
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>
-                MeasurementsScreen
-            </Text>
-            <View style={styles.header}>
-                <Text style={styles.headerText}>
-                    How tall are you?
-                </Text>
+        <>
+            <StatusBar barStyle="light-content" backgroundColor="transparent" translucent={true} />
+            <View style={styles.container}>
+                <View style={styles.header}>
+                    <TouchableOpacity onPress={goBack}>
+                        <Text style={styles.arrow}>←</Text>
+                    </TouchableOpacity>
+                    <Text style={styles.title}>
+                        MeasurementsScreen
+                    </Text>
+                </View>
+                <View>
+                    <Text style={styles.headerText}>
+                        How tall are you?
+                    </Text>
+                </View>
+                <View style={styles.inputContain}>
+                    <CustomTextInput
+                        name="height"
+                        placeholder="Your height"
+                        onChangeText={setHeight}
+                        keyboardType="numeric"
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        secureTextEntry={false}
+                    />
+                </View>
+                <View>
+                    <Image style={styles.AverageFemaleBody} source={averageFemaleBodyURL} />
+                    <Image style={styles.VerticalLine} source={verticalLineURL} />
+                </View>
+                <SaveBuuton handleSave={handleSave} activeButton={height} screen="Measurements" />
             </View>
-            <View style={styles.inputContain}>
-                <CustomTextInput
-                    name="height"
-                    placeholder="Your height"
-                    onChangeText={setHeight}
-                    keyboardType="numeric"
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    secureTextEntry={false}
-                />
-            </View>
-            <View>
-                <Image style={styles.AverageFemaleBody} source={averageFemaleBodyURL} />
-                <Image style={styles.VerticalLine} source={verticalLineURL} />
-            </View>
-            <SaveBuuton handleSave={handleSave} />
-        </View>
+        </>
     );
 };
 

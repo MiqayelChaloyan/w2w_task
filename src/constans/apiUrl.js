@@ -1,0 +1,1 @@
+export const API_URL = 'https://w2w-api-381305.ew.r.appspot.com/bmt?height=';

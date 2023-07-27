@@ -21,9 +21,9 @@ const styles = StyleSheet.create({
         height: verticalScale(148),
     },
     degree: {
-        width: horizontalScale(150),
+        width: horizontalScale(140),
         height: verticalScale(148),
-        right: horizontalScale(45),
+        right: horizontalScale(55),
         top: verticalScale(33)
     },
     boldText: {

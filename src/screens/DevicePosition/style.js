@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import palette from '../../assets/theme/theme';
 import { horizontalScale, moderateScale, verticalScale } from '../../assets/metrics/metrics';
 
 const styles = StyleSheet.create({
@@ -37,15 +38,15 @@ const styles = StyleSheet.create({
         height: verticalScale(132),
     },
     title: {
-        color: 'black',
         fontSize: moderateScale(20),
-        textAlign: 'center'
+        textAlign: 'center',
+        color: palette.black,
     },
     text: {
-        color: 'black',
         fontSize: moderateScale(14),
         textAlign: 'center',
-        marginHorizontal: horizontalScale(20)
+        marginHorizontal: horizontalScale(20),
+        color: palette.black,
     }
 });
 

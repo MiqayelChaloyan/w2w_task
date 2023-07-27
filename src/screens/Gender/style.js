@@ -5,17 +5,17 @@ import { horizontalScale, moderateScale, verticalScale } from '../../assets/metr
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: palette.primary_blue,
         justifyContent: 'flex-start',
         alignItems: 'center',
+        backgroundColor: palette.primary_blue,
     },
     gender: {
         textAlign: 'center',
-        color: palette.white,
         fontSize: moderateScale(12),
         textTransform: 'uppercase',
         marginBottom: verticalScale(150),
-        top: verticalScale(20),
+        top: verticalScale(50),
+        color: palette.white,
     },
     genderOptions: {
         marginBottom: verticalScale(180),
@@ -23,22 +23,21 @@ const styles = StyleSheet.create({
     title: {
         width: horizontalScale(350),
         textAlign: 'left',
-        color: palette.white,
         fontSize: moderateScale(30),
         lineHeight: verticalScale(32.19),
         marginBottom: verticalScale(70),
-        paddingHorizontal: horizontalScale(10)
-
+        paddingHorizontal: horizontalScale(10),
+        color: palette.white,
     },
     button: {
-        width: horizontalScale(341),
+        width: horizontalScale(347),
         height: verticalScale(44),
-        backgroundColor: palette.primary_blue,
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: verticalScale(15),
         marginBottom: verticalScale(20),
         borderWidth: verticalScale(0.5),
+        backgroundColor: palette.primary_blue,
         borderColor: palette.white
     },
     activeButton: {

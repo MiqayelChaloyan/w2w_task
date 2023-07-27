@@ -5,6 +5,7 @@ const palette = {
     black: '#0a0a0a',
     gray: '#302e2d',
     primary_gray: '#b5b3b3',
+    red: '#db0404',
 };
 
 export default palette;

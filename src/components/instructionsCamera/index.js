@@ -1,24 +1,25 @@
 import PropTypes from 'prop-types';
-import React, { memo, useCallback, useContext } from 'react';
+import { memo, useCallback } from 'react';
+import { PERMISSIONS, request, check, RESULTS } from 'react-native-permissions';
+import { Platform } from "react-native";
 import { Image, TouchableOpacity, View } from 'react-native';
-import { GlobalDataContext } from '../../contexts/context';
-import { useFocusEffect } from '@react-navigation/native';
 import styles from './style';
 
 function InstructionsCamera({ navigation, screen, children }) {
-    const { setChangeStatusBar } = useContext(GlobalDataContext);
 
-    useFocusEffect(
-        useCallback(() => {
-            setChangeStatusBar(false);
-            return () => {
-                setChangeStatusBar(true);
-            };
-        }, [children]),
-    );
-
-    const handleChangeScreen = useCallback(() => {
-        navigation.navigate(screen);
+    const handleChangeScreen = useCallback(async () => {
+        if (screen === "CameraFront") {
+            const checkPermission = Platform.OS === 'android' ? PERMISSIONS.ANDROID.CAMERA : PERMISSIONS.IOS.CAMERA;
+            await request(checkPermission);
+            const res = await check(checkPermission);
+            if (res === RESULTS.GRANTED) {
+                return navigation.navigate(screen);
+            } else {
+                console.log('Error: Camera Permission')
+            }
+        } else {
+            return navigation.navigate(screen);
+        }
     }, [])
 
     return (
@@ -33,6 +34,7 @@ function InstructionsCamera({ navigation, screen, children }) {
                         source={require('../../assets/images/Button.png')}
                     />
                 </TouchableOpacity>
+                <View style={styles.line} />
             </View>
         </View>
     );
