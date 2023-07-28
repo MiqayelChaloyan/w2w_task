@@ -34,7 +34,7 @@ const CountdownTimer = ({ capturePhoto }) => {
         <>
             {timeLeft > 0 ? (
                 <View style={styles.cuntdownTimer}>
-                    <Text style={{ fontSize: 100, color: 'white', textAlign: 'center' }}>{timeLeft}</Text>
+                    <Text style={styles.timeLeft}>{timeLeft}</Text>
                 </View>
             ) : (
                 <View style={styles.container}>

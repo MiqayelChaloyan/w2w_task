@@ -41,8 +41,8 @@ function InstructionsCamera({ navigation, screen, children }) {
 }
 
 InstructionsCamera.propTypes = {
-    navigation: PropTypes.object,
-    screen: PropTypes.string,
+    navigation: PropTypes.object.isRequired,
+    screen: PropTypes.string.isRequired,
     children: PropTypes.node.isRequired,
 };
 

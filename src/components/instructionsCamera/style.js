@@ -28,12 +28,12 @@ const styles = StyleSheet.create({
         height: verticalScale(102),
     },
     line: {
-        backgroundColor: palette.primary_gray,
         width: horizontalScale(150),
         height: verticalScale(110),
         position: 'absolute',
         bottom: verticalScale(182),
         right: horizontalScale(-28),
+        backgroundColor: palette.primary_gray,
     },
 });
 

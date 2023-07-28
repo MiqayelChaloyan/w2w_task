@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import palette from '../../assets/theme/theme';
-import { horizontalScale, verticalScale } from '../../assets/metrics/metrics';
+import { horizontalScale, moderateScale, verticalScale } from '../../assets/metrics/metrics';
 
 const styles = StyleSheet.create({
     button: {
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: verticalScale(400),
         textAlign: 'center',
-        fontSize: 100,
+        fontSize: moderateScale(100),
         opacity: 0.5,
         backgroundColor: 'transparent',
         color: palette.white,

@@ -15,7 +15,6 @@ const styles = StyleSheet.create({
     marginHorizontal: horizontalScale(25),
     color: palette.white,
   },
-
   cuntdownTimer: {
     width: horizontalScale(370),
     position: 'absolute',
@@ -24,7 +23,12 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(100),
     color: palette.white,
     opacity: 0.5,
-}
+  },
+  timeLeft: {
+    fontSize: moderateScale(100),
+    textAlign: 'center',
+    color: palette.white,
+  }
 });
 
 export default styles;

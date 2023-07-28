@@ -7,8 +7,8 @@ import CameraPreview from '../../components/camera';
 import CountdownTimer from '../../components/countdownTimer';
 import { sendDataToServer } from '../../utils';
 import Loading from '../../components/loading';
-import styles from './style';
 import ErrorModal from '../../components/modal';
+import styles from './style';
 
 function CameraSideScreen({ navigation }) {
   const [isLoading, setLoading] = useState(false);
