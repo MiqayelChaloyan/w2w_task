@@ -15,7 +15,7 @@ function InstructionsCamera({ navigation, screen, children }) {
             if (res === RESULTS.GRANTED) {
                 return navigation.navigate(screen);
             } else {
-                console.log('Error: Camera Permission')
+                console.error('Error: Camera Permission')
             }
         } else {
             return navigation.navigate(screen);

@@ -27,10 +27,10 @@ export const sendDataToServer = async (data, profile) => {
     } catch (error) {
         if (error.response) {
             console.error('API responded with an error:', error.response.status, error.response.data);
-            return error.response;
+            return error.message;
         } else if (error.request) {
             console.error('No response received from API:', error.message);
-            return error.request;
+            return error.message;
         } else {
             console.error('Error setting up the request:', error.message);
             return error.message;
