@@ -3,9 +3,29 @@ import { memo, useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import styles from './style';
 
-const CountdownTimer = ({ capturePhoto }) => {
+const CountdownTimer = ({ capturePhoto, disabled, device, timer: frontTimer }) => {
     const [timeLeft, setTimeLeft] = useState(null);
-    const [activeTimer, setActiveTimer] = useState(null);
+    const [seconds, setSeconds] = useState(null);
+
+
+    const startCuntdown = (timer) => {
+        setTimeout(() => {
+            setTimeLeft(timer);
+            setSeconds(timer);
+        }, 1000)
+    }
+
+    useEffect(() => {
+        console.log("========", frontTimer);
+        let timeoutId = null
+        if (device !== 'front' && timeLeft == null) {
+             timeoutId = setTimeout(() => {
+                startCuntdown(frontTimer);
+            }, 4000);
+        }
+
+        return () => timeoutId && clearTimeout(timeoutId);
+    }, []);
 
     useEffect(() => {
         if (timeLeft > 0) {
@@ -17,35 +37,27 @@ const CountdownTimer = ({ capturePhoto }) => {
     }, [timeLeft]);
 
     useEffect(() => {
-        if(timeLeft === 0) {
-            capturePhoto();
-            setTimeLeft(null);
+        if (timeLeft === 0) {
+            capturePhoto(seconds);
         }
     }, [timeLeft])
 
-    const startCuntdown = (timer, timerString) => {
-        setActiveTimer(timerString)
-        setTimeout(() => {
-            setTimeLeft(timer);
-        }, 1000)
-    }
-
     return (
         <>
-            {timeLeft > 0 ? (
+            {timeLeft > 0 || timeLeft !== null || device !== 'front' ? (
                 <View style={styles.cuntdownTimer}>
                     <Text style={styles.timeLeft}>{timeLeft}</Text>
                 </View>
             ) : (
                 <View style={styles.container}>
-                    <TouchableOpacity onPress={() => startCuntdown(10, 'ten')}>
-                        <Text style={[styles.option, { opacity: activeTimer === 'ten' ? 5 : 0.5 }]}>10s</Text>
+                    <TouchableOpacity disabled={disabled} onPress={() => startCuntdown(10)}>
+                        <Text style={[styles.option, { opacity: seconds === 10 ? 5 : 0.5 }]}>10s</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => startCuntdown(15, 'twenty')}>
-                        <Text style={[styles.option, { opacity: activeTimer === 'twenty' ? 5 : 0.5 }]}>15s</Text>
+                    <TouchableOpacity disabled={disabled} onPress={() => startCuntdown(15)}>
+                        <Text style={[styles.option, { opacity: seconds === 15 ? 5 : 0.5 }]}>15s</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => startCuntdown(20, 'fifteen')}>
-                        <Text style={[styles.option, { opacity: activeTimer === 'fifteen' ? 5 : 0.5 }]}>20s</Text>
+                    <TouchableOpacity disabled={disabled} onPress={() => startCuntdown(20)}>
+                        <Text style={[styles.option, { opacity: seconds === 20 ? 5 : 0.5 }]}>20s</Text>
                     </TouchableOpacity>
                 </View>
             )

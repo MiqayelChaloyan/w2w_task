@@ -6,18 +6,19 @@ const styles = StyleSheet.create({
     camera: {
         flex: 1
     },
-    size: {
+    size: (isCorrectDevicePosition) => ({
         borderLeftWidth: horizontalScale(4),
         borderTopWidth: verticalScale(4),
         borderRightWidth: horizontalScale(4),
+        borderBottomWidth: horizontalScale(4),
         width: horizontalScale(290),
         height: verticalScale(653.5),
         position: 'absolute',
         borderRadius: verticalScale(10),
         marginHorizontal: horizontalScale(45),
         marginVertical: verticalScale(70.2),
-        borderColor: palette.light_blue,
-    },
+        borderColor: isCorrectDevicePosition ? palette.light_blue : 'red',
+    }),
     pictureForm: {
         fontSize: moderateScale(18),
         marginHorizontal: horizontalScale(135),
@@ -25,26 +26,26 @@ const styles = StyleSheet.create({
         position: 'absolute',
         color: palette.white
     },
-    lineLeft: {
+    lineLeft: (isCorrectDevicePosition) => ({
         width: horizontalScale(50),
         height: verticalScale(4),
         position: 'absolute',
         bottom: verticalScale(119),
         right: horizontalScale(44),
         borderBottomWidth: horizontalScale(4),
-        borderColor: palette.light_blue,
+        borderColor: isCorrectDevicePosition ? palette.light_blue : 'red',
         borderRadius: verticalScale(15)
-    },
-    lineRight: {
+    }),
+    lineRight: (isCorrectDevicePosition) => ({
         width: horizontalScale(50),
         height: verticalScale(4),
         position: 'absolute',
         bottom: verticalScale(119),
         left: horizontalScale(49),
         borderBottomWidth: horizontalScale(4),
-        borderColor: palette.light_blue,
+        borderColor: isCorrectDevicePosition ? palette.light_blue : 'red',
         borderRadius: verticalScale(15)
-    },
+    }),
 });
 
 export default styles;

@@ -10,10 +10,12 @@ import Loading from '../../components/loading';
 import ErrorModal from '../../components/modal';
 import styles from './style';
 
-function CameraSideScreen({ navigation }) {
+function CameraSideScreen({ navigation, route }) {
   const [isLoading, setLoading] = useState(false);
   const [isError, setError] = useState(false);
   const [isDrawingOrder, setDrawingOrder] = useState(true);
+
+  const [isCorrectDevicePosition, setIsCorrectDevicePosition] = useState(true);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -33,8 +35,7 @@ function CameraSideScreen({ navigation }) {
       try {
         setLoading(true)
         const result = await sendDataToServer(data, 'file://' + photo.path);
-
-        if (result) {
+        if (result.shoulder) {
           setLoading(false);
           return navigation.navigate({
             name: 'Scanned',
@@ -42,14 +43,19 @@ function CameraSideScreen({ navigation }) {
             merge: true,
           });
         }
+        setError(true);
       } catch (error) {
-        setError(true)
+        setError(true);
       }
     }
   }, []);
 
+  const handleCorrectDevicePosition = (deg90, portrait) => {
+    setIsCorrectDevicePosition(deg90 && portrait)
+  };
+
   return (
-    <CameraPreview camera={camera} pictureForm='Side photo'>
+    <CameraPreview camera={camera} pictureForm='Side photo' handleCorrectDevicePosition={handleCorrectDevicePosition}>
       <ErrorModal modalVisible={isError} setModalVisible={setError} navigation={navigation} />
       {isLoading && <Loading />}
       {
@@ -62,10 +68,10 @@ function CameraSideScreen({ navigation }) {
         )
       }
       <View>
-        <TouchableOpacity onPress={capturePhoto} style={styles.button}>
+        {/* <TouchableOpacity disabled={!isCorrectDevicePosition} onPress={capturePhoto} style={styles.button(isCorrectDevicePosition)}>
           <Image style={[styles.capture, { opacity: isLoading ? 0.5 : 2 }]} source={cameraButtonURL} />
-        </TouchableOpacity>
-        <CountdownTimer capturePhoto={capturePhoto} />
+        </TouchableOpacity> */}
+        <CountdownTimer capturePhoto={capturePhoto} disabled={!isCorrectDevicePosition} device='side' timer={route?.params?.timer}/>
       </View>
     </CameraPreview>
   );
