@@ -1,43 +1,44 @@
 import PropTypes from 'prop-types';
 import { memo, useEffect, useState } from 'react';
-import { Linking, StatusBar, Text, View } from 'react-native';
+import { Linking, Platform, StatusBar, Text, View } from 'react-native';
 import { useCameraDevices, Camera } from 'react-native-vision-camera';
 import styles from './style';
 
-
-// TODO --------------------------------------------
 import { setUpdateIntervalForType, SensorTypes, accelerometer } from 'react-native-sensors';
-// TODO --------------------------------------------
+import { log } from 'console';
+import { platform } from 'os';
 
 
 function CameraPreview({ children, camera, pictureForm, handleCorrectDevicePosition }) {
     const devices = useCameraDevices();
     const device = devices.front;
 
-    /////
-
     // const [isRecording, setIsRecording] = useState(true);
     const [isCorrectDevicePosition, setIsCorrectDevicePosition] = useState(true);
+    let t = 10;
+    let maxZ = -0.5;
+    let minY = 9.5;
+    let sign = -1;
 
+
+    if(Platform.OS === 'android') {
+        t = 1;
+        sign = 1;
+        maxZ = 1.8;
+        minY = 9.5;
+    }
     setUpdateIntervalForType(SensorTypes.accelerometer, 500);
 
     useEffect(() => {
-        async function getPermission() {
-            const permission = await Camera.requestCameraPermission();
-            if (permission === 'danied') await Linking.openSettings({ flash: 'on' });
-        }
-        getPermission()
-
-        //////
+        // async function getPermission() {
+        //     const permission = await Camera.requestCameraPermission();
+        //     if (permission === 'danied') await Linking.openSettings({ flash: 'on' });
+        // }
+        // getPermission()
         accelerometer.subscribe(({ x, y, z }) => {
-            // setDeg90(z < 1.8 && z > -1.8);
-            // setPortrait(y > 9.8)
-            // console.log('90', z < 1.8 && z > -1.8);
-            // console.log('vert', y > 9.8);
-            handleCorrectDevicePosition(z < 1.8 && z > -1.8, y > 9.5);
-            setIsCorrectDevicePosition(z < 1.8 && z > -1.8 && y > 9.5)
+            handleCorrectDevicePosition(t*z < maxZ && t*z > -1.8, sign*t*y > minY);
+            setIsCorrectDevicePosition(t*z < maxZ && t*z > -1.8 && sign*t*y > minY)
         });
-        //////
     }, []);
 
     if (device == null) {

@@ -40,7 +40,6 @@ function MeasurementsScreen({ navigation }) {
                         name="height"
                         placeholder="Your height"
                         onChangeText={setHeight}
-                        keyboardType="numeric"
                         autoCapitalize="none"
                         autoCorrect={false}
                         secureTextEntry={false}

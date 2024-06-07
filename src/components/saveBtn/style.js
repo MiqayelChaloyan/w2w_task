@@ -9,9 +9,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: verticalScale(40),
-        marginHorizontal: horizontalScale(120),
-        marginVertical: verticalScale(105),
         backgroundColor: palette.light_blue,
+        marginTop:verticalScale(20)
     },
     activeButton: {
         opacity: 0.5,
@@ -28,17 +27,18 @@ const styles = StyleSheet.create({
         height: verticalScale(200),
         marginLeft: 0,
         marginRight: 0,
-        marginVertical: verticalScale(30)
+        marginVertical: verticalScale(30),
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     cameraButton: {
-        width: horizontalScale(67),
+        width: horizontalScale(70),
         height: verticalScale(70),
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: verticalScale(40),
-        marginHorizontal: horizontalScale(152),
-        marginVertical: verticalScale(92),
         backgroundColor: palette.primary_blue,
+        marginTop: verticalScale(30),
     },
     cameraBtn: {
         width: horizontalScale(48),

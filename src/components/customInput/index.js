@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useEffect, memo } from 'react';
-import { TextInput, View } from 'react-native';
+import { Keyboard, TextInput, View } from 'react-native';
 import useDelayDebounce from '../../customHooks';
 import palette from '../../assets/theme/theme';
 import styles from './style';
@@ -29,10 +29,12 @@ const CustomTextInput = ({
         style={styles.input}
         variant={'standard'}
         onChangeText={setInputValue}
-        keyboardType={keyboardType}
+        keyboardType='numeric'
+        returnKeyType='done'
         autoCapitalize={autoCapitalize}
         autoCorrect={autoCorrect}
         secureTextEntry={secureTextEntry}
+        onBlur={()=>Keyboard.dismiss()}
       />
     </View>
   );
