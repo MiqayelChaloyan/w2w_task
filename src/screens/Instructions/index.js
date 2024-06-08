@@ -1,21 +1,26 @@
 import PropTypes from 'prop-types';
 import { memo } from 'react';
+
 import { Image, StatusBar, Text, View } from 'react-native';
+
 import InstructionsCamera from '../../components/instructionsCamera';
-import { degreeURL, frontLookURL, sideLookURL } from '../../constans/imagePath';
+
+import { ImagePaths, PageName } from '../../constans';
+
 import styles from './style';
 
-function InstructionsScreen({ navigation }) {
+
+function Instructions({ navigation }) {
     return (
         <>
             <StatusBar barStyle="light-content" backgroundColor="transparent" translucent={true} />
-            <InstructionsCamera navigation={navigation} screen='CameraFront'>
+            <InstructionsCamera navigation={navigation} screen={PageName.cameraFront}>
                 <View style={styles.container}>
-                    <Image style={styles.frontLook} source={frontLookURL} />
-                    <Image style={styles.sideLook} source={sideLookURL} />
+                    <Image style={styles.frontLook} source={ImagePaths.frontLook} />
+                    <Image style={styles.sideLook} source={ImagePaths.sideLook} />
                 </View>
                 <View style={styles.linearPoints}>
-                    <Image style={styles.degree} source={degreeURL} />
+                    <Image style={styles.degree} source={ImagePaths.degree} />
                 </View>
                 <View style={styles.textContain}>
                     <Text style={styles.text}>
@@ -44,8 +49,8 @@ function InstructionsScreen({ navigation }) {
     );
 }
 
-InstructionsScreen.propTypes = {
+Instructions.propTypes = {
     navigation: PropTypes.object.isRequired,
 };
 
-export default memo(InstructionsScreen);
+export default memo(Instructions);

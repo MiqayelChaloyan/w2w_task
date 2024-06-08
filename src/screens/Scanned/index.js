@@ -1,12 +1,18 @@
 import PropTypes from 'prop-types';
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
+
 import { Image, Text, View, TouchableOpacity } from 'react-native';
-import { ringURL, averageFemaleBodyURL } from '../../constans/imagePath';
+
+import { useSelector } from 'react-redux';
+
+import { ImagePaths, PageName } from '../../constans';
+
 import styles from './style';
+
 
 const Ring = ({ value, label, ringURLStyle, ringContainer, ringSize, ringText }) => (
     <>
-        <Image source={ringURL} style={ringURLStyle} />
+        <Image source={ImagePaths.ring} style={ringURLStyle} />
         <View style={ringContainer}>
             <Text style={ringSize}>{value}</Text>
             <Text style={ringText}>{label}</Text>
@@ -17,12 +23,14 @@ const Ring = ({ value, label, ringURLStyle, ringContainer, ringSize, ringText })
 function ScannedScreen({ navigation, route }) {
     const { data } = route.params;
     const { shoulder, waist, hip } = data;
+    const state = useSelector(state => state.state);
+    const imageSource = useMemo(() => state.isFemale ? ImagePaths.femaleFront : ImagePaths.maleFront, [state.isFemale]);
 
     return (
         <View style={styles.container}>
             <Text style={styles.title}>We scanned Your Parameters</Text>
             <View style={styles.contain}>
-                <Image source={averageFemaleBodyURL} style={styles.averageFemaleBodyURL} />
+                <Image source={imageSource} style={styles.averageFemaleBodyURL} />
                 <Ring
                     value={shoulder}
                     label="Shoulders"
@@ -51,7 +59,7 @@ function ScannedScreen({ navigation, route }) {
             <TouchableOpacity style={styles.button}>
                 <Text style={styles.textBtn}>Save</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('CameraFront')}>
+            <TouchableOpacity onPress={() => navigation.navigate(PageName.gender)}>
                 <Text style={[styles.textBtn, styles.again]}>Scan Again</Text>
             </TouchableOpacity>
         </View>

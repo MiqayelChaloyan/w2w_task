@@ -24,8 +24,8 @@ const styles = StyleSheet.create({
         zIndex: 1
     },
     gotItBtn: {
-        width: horizontalScale(97),
-        height: verticalScale(102),
+        width: horizontalScale(95),
+        height: verticalScale(100),
     },
     line: {
         width: horizontalScale(150),

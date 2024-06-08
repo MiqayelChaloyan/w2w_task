@@ -1,27 +1,31 @@
 import PropTypes from 'prop-types';
 import { memo } from 'react';
+
 import { Image, StatusBar, Text, View } from 'react-native';
+
 import InstructionsCamera from '../../components/instructionsCamera';
-import { sideLookURL, tableURL, vectorUpwardsURL, vectorDownwardsURL } from '../../constans/imagePath';
+
+import { GeneralTexts, ImagePaths, PageName } from '../../constans';
+
 import styles from './style';
 
-function DevicePositionScreen({ navigation }) {
+
+function DevicePosition({ navigation }) {
     return (
         <>
             <StatusBar barStyle="light-content" backgroundColor="transparent" translucent={true} />
-            <InstructionsCamera navigation={navigation} screen='Instructions'>
+            <InstructionsCamera navigation={navigation} screen={PageName.instructions}>
                 <View style={styles.container}>
-                    <Image style={styles.table} source={tableURL} />
-                    <Image style={styles.sideLook} source={sideLookURL} />
+                    <Image style={styles.devicePosition} source={ImagePaths.devicePosition} />
                 </View>
                 <View style={styles.linearPoints}>
-                    <Image style={styles.vectorUpwards} source={vectorUpwardsURL} />
-                    <Image style={styles.vectorDownwards} source={vectorDownwardsURL} />
                 </View>
                 <View style={styles.textContain}>
-                    <Text style={styles.title}>Device Position</Text>
+                    <Text style={styles.title}>
+                        {GeneralTexts.devicePositionTitle}
+                    </Text>
                     <Text style={styles.text}>
-                        Place your device at hip height on a table or similar surface.
+                        {GeneralTexts.devicePosition}
                     </Text>
                 </View>
             </InstructionsCamera>
@@ -29,8 +33,8 @@ function DevicePositionScreen({ navigation }) {
     );
 }
 
-DevicePositionScreen.propTypes = {
+DevicePosition.propTypes = {
     navigation: PropTypes.object.isRequired,
 };
 
-export default memo(DevicePositionScreen);
+export default memo(DevicePosition);

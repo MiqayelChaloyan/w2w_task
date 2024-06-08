@@ -4,11 +4,12 @@ import { PERMISSIONS, request, check, RESULTS } from 'react-native-permissions';
 import { Platform } from "react-native";
 import { Image, TouchableOpacity, View } from 'react-native';
 import styles from './style';
+import { ImagePaths, PageName } from '../../constans';
 
 function InstructionsCamera({ navigation, screen, children }) {
 
     const handleChangeScreen = useCallback(async () => {
-        if (screen === "CameraFront") {
+        if (screen === PageName.cameraFront) {
             const checkPermission = Platform.OS === 'android' ? PERMISSIONS.ANDROID.CAMERA : PERMISSIONS.IOS.CAMERA;
             await request(checkPermission);
             const res = await check(checkPermission);
@@ -31,7 +32,7 @@ function InstructionsCamera({ navigation, screen, children }) {
                 <TouchableOpacity style={styles.button} onPress={handleChangeScreen}>
                     <Image
                         style={styles.gotItBtn}
-                        source={require('../../assets/images/Button.png')}
+                        source={ImagePaths.goButton}
                     />
                 </TouchableOpacity>
                 <View style={styles.line} />

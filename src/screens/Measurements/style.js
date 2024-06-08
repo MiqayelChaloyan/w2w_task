@@ -1,49 +1,64 @@
 import { StyleSheet } from 'react-native';
-import palette from '../../assets/theme/theme';
-import { horizontalScale, moderateScale, verticalScale } from '../../assets/metrics/metrics';
+import { horizontalScale, verticalScale } from '../../assets/metrics/metrics';
+import { colors } from '../../constans/colors';
+import { Styles } from '../../constans';
+import { RFValue } from 'react-native-responsive-fontsize';
+
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        backgroundColor: palette.primary_blue,
+        backgroundColor: colors.darkBlue,
+        justifyContent: 'space-between',
     },
     header: {
-        flexDirection: 'row',
+        marginTop: verticalScale(60),
+    },
+    main: {
+        alignItems: Styles.center,
+        margin: horizontalScale(5),
+        marginBottom: verticalScale(5),
     },
     title: {
-        textAlign: 'center',
-        fontSize: moderateScale(12),
-        textTransform: 'uppercase',
-        marginBottom: verticalScale(50),
-        top: verticalScale(50),
-        color: palette.white,
+        color: colors.white,
+        textAlign: Styles.center,
+        fontSize: RFValue(20),
+        fontFamily: Styles.fontFamily,
     },
-    arrow: {
-        width: horizontalScale(20),
-        right: horizontalScale(70),
-        top: verticalScale(48),
-        color: palette.white,
+    scilet: {
+        resizeMode: 'contain',
+        width: horizontalScale(375),
+        height: RFValue(320),
     },
-    inputContain: {
-        marginVertical: verticalScale(10)
+    size: {
+        position: 'absolute',
+        top: '45%',
+        right: '26%',
+        backgroundColor: colors.cyan,
+        padding: horizontalScale(5),
+        borderRadius: horizontalScale(5),
+        width: horizontalScale(70),
+    },
+    sizeText: {
+        color: colors.white,
+        fontSize: RFValue(14),
+        textAlign: Styles.center,
+        fontFamily: Styles.fontFamily,
+    },
+    section: {
+        position: 'relative',
+    },
+    highlightedButton: {
+        position: 'absolute',
+        zIndex: 5,
+        top: '56.5%',
+        alignSelf: Styles.center,
     },
     headerText: {
-        color: palette.white,
-        fontSize: moderateScale(25),
-        paddingVertical: verticalScale(15)
-    },
-    AverageFemaleBody: {
-        width: horizontalScale(395),
-        height: verticalScale(410),
-        position: 'relative'
-    },
-    VerticalLine: {
-        position: 'absolute',
-        width: horizontalScale(18.27),
-        height: verticalScale(420),
-        marginHorizontal: horizontalScale(188)
+        color: colors.white,
+        fontSize: RFValue(20),
+        textAlign: Styles.center,
+        fontFamily: Styles.fontFamily,
     }
 });
 

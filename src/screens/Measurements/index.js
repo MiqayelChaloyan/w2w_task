@@ -1,63 +1,114 @@
 import PropTypes from 'prop-types';
-import { useState, memo, useContext, useCallback } from 'react';
-import { Text, View, Image, StatusBar, TouchableOpacity } from 'react-native';
-import CustomTextInput from '../../components/customInput';
-import SaveBuuton from '../../components/saveBtn';
-import { GlobalDataContext } from '../../contexts/context';
-import { averageFemaleBodyURL, verticalLineURL } from '../../constans/imagePath';
+import { useState, memo, useCallback, useMemo } from 'react';
+
+import { Text, View, Image, StatusBar } from 'react-native';
+
+import Toast from 'react-native-simple-toast';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { addValue } from '../../store/stateSlice';
+
+import MeasurementsFooter from '../../components/measurementsFooter';
+import DataInputWidget from '../../components/DataInputWidget';
+import MeasurementsHeader from '../../components/measurementsHeader';
+import HighlightedButton from '../../components/highlightButton';
+import ToggleButton from '../../components/toggleButton';
+
+import { horizontalScale } from '../../assets/metrics/metrics';
+
+import { GeneralTexts, ImagePaths, PageName, ToastTexts } from '../../constans';
+
 import styles from './style';
 
-function MeasurementsScreen({ navigation }) {
-    const [height, setHeight] = useState(null);
-    const { data, setData } = useContext(GlobalDataContext);
 
-    const handleSave = useCallback(() => {
-        setData({ ...data, height });
-        navigation.navigate('DevicePosition');
-    }, [height]);
+function Measurements({ navigation }) {
+    const [isVisible, setIsVisible] = useState(false);
+    const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+    const [height, setHeight] = useState('');
+    const [unitOfMeasurement, setUnitOfMeasurement] = useState('cm');
+    const state = useSelector(state => state.state);
+    const dispatch = useDispatch();
+    const isDisabled = !(height);
 
-    const goBack = () => navigation.navigate('Gender');
+    const handleSave = () => {
+        if (!height) {
+            Toast.showWithGravity(ToastTexts.HeightNonEmpty, Toast.SHORT, Toast.BOTTOM);
+            return
+        }
+        dispatch(addValue({ height, isCentimeter: unitOfMeasurement == 'cm' }));
+        return navigation.navigate(PageName.devicePosition);
+    }
+
+    const imageSource = useMemo(() => state.isFemale ? ImagePaths.femaleFront : ImagePaths.maleFront, [state.isFemale]);
+
+    const handleOpening = () => setIsVisible(true);
+
+    const handleChangeMeasurement = useCallback((value) => {
+        setUnitOfMeasurement(value)
+    }
+        , [handleChangeMeasurement]);
+
+    const handleSaveState = useCallback(() => handleChangeModalStatus(), []);
+    const handleChangeModalStatus = useCallback(() => setIsVisible(false), [isKeyboardVisible]);
+    const handleChangeText = useCallback((value) => setHeight(value)
+        , []);
 
     return (
         <>
+            <DataInputWidget
+                title={GeneralTexts.measurementsTitle}
+                label='Height'
+                isVisible={isVisible}
+                handleChangeModalStatus={handleChangeModalStatus}
+                handleSaveState={handleSaveState}
+                onChangeText={handleChangeText}
+                measurements={{ height }}
+            />
             <StatusBar barStyle="light-content" backgroundColor="transparent" translucent={true} />
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <TouchableOpacity onPress={goBack}>
-                        <Text style={styles.arrow}>←</Text>
-                    </TouchableOpacity>
-                    <Text style={styles.title}>
-                        MeasurementsScreen
-                    </Text>
+                    <MeasurementsHeader />
                 </View>
-                <View>
+                <View style={styles.main}>
                     <Text style={styles.headerText}>
-                        How tall are you?
+                        {GeneralTexts.measurementsTitle}
                     </Text>
-                </View>
-                <View style={styles.inputContain}>
-                    <CustomTextInput
-                        name="height"
-                        placeholder="Your height"
-                        onChangeText={setHeight}
-                        keyboardType="numeric"
-                        autoCapitalize="none"
-                        autoCorrect={false}
-                        secureTextEntry={false}
+                    <ToggleButton
+                        rightText='ft in'
+                        leftText='cm'
+                        width={horizontalScale(98)}
+                        handleChange={handleChangeMeasurement}
+                        value1={unitOfMeasurement}
+                        fontSize={20}
                     />
                 </View>
-                <View>
-                    <Image style={styles.AverageFemaleBody} source={averageFemaleBodyURL} />
-                    <Image style={styles.VerticalLine} source={verticalLineURL} />
+                <View style={styles.section}>
+                    <Image source={imageSource} style={styles.scilet} />
+                    {height && <View style={styles.size}>
+                        <Text style={styles.sizeText}>
+                            {height}
+                        </Text>
+                    </View>}
                 </View>
-                <SaveBuuton handleSave={handleSave} activeButton={height} screen="Measurements" />
+                <View style={styles.highlightedButton}>
+                    <HighlightedButton
+                        onPress={handleOpening}
+                        label='height'
+                        measurements={{ height }}
+                    />
+                </View>
             </View>
+            <MeasurementsFooter
+                camera={true}
+                handleSave={handleSave}
+                disabled={isDisabled}
+            />
         </>
     );
 };
 
-MeasurementsScreen.propTypes = {
-    navigation: PropTypes.object.isRequired,
+Measurements.propTypes = {
+    navigation: PropTypes.object,
 };
 
-export default memo(MeasurementsScreen);
+export default memo(Measurements);

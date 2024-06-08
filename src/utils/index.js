@@ -23,6 +23,8 @@ export const sendDataToServer = async (data, profile) => {
             },
         });
 
+        console.log('///////////////////////////////////////////////////////////');
+        console.log(response.data, 'response.data')
         return response.data;
     } catch (error) {
         if (error.response) {

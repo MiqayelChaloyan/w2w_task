@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
 import { Alert, Modal, Text, Pressable, View } from 'react-native';
 import styles from './style';
+import { PageName } from '../../constans';
 
 const ErrorModal = ({modalVisible, setModalVisible, navigation}) => {
 
     const handleTryAgain = () => {
         setModalVisible(!modalVisible);
-        navigation.navigate('Gender');
+        navigation.navigate(PageName.gender);
     }
 
     return (

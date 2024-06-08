@@ -21,8 +21,9 @@ const styles = StyleSheet.create({
         position: 'relative',
     },
     averageFemaleBodyURL: {
-        width: horizontalScale(354),
-        height: verticalScale(372),
+        width: horizontalScale(250),
+        height: verticalScale(350),
+        alignSelf: 'center'
     },
     shoulderRingURL: {
         width: horizontalScale(149),

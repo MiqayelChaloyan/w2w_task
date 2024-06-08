@@ -1,50 +1,50 @@
 import PropTypes from 'prop-types';
-import { useContext, useRef, useCallback, memo, useState } from 'react';
-import { Image, TouchableOpacity, View } from 'react-native';
-import { GlobalDataContext } from '../../contexts/context';
-import { cameraButtonURL } from '../../constans/imagePath';
+import { useRef, useCallback, memo, useState } from 'react';
+
+import { View } from 'react-native';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { addValue } from '../../store/stateSlice';
+
 import CameraPreview from '../../components/camera';
 import CountdownTimer from '../../components/countdownTimer';
-import styles from './style';
+import { PageName } from '../../constans';
 
-function CameraFrontScreen({ navigation }) {
-  const { data, setData } = useContext(GlobalDataContext);
+
+function CameraFront({ navigation }) {
+  const state = useSelector(state => state.state);
   const camera = useRef(null);
+  const dispatch = useDispatch();
 
   const [isCorrectDevicePosition, setIsCorrectDevicePosition] = useState(true);
 
   const capturePhoto = useCallback(async (timer) => {
     if (camera.current !== null) {
       const photo = await camera.current.takePhoto({});
-      setData({ ...data, front: 'file://' + photo.path });
+      dispatch(addValue({ ...state, front: 'file://' + photo.path  }));
+
       return navigation.navigate({
-        name: 'CameraSide',
+        name: PageName.cameraSide,
         params: { timer },
     });
     }
   }, []);
 
-  
   const handleCorrectDevicePosition = (deg90, portrait) => {
     setIsCorrectDevicePosition(deg90 && portrait)
   };
 
-  console.log(isCorrectDevicePosition, 'front')
-  
   return (
     <CameraPreview camera={camera} pictureForm='Front photo' handleCorrectDevicePosition={handleCorrectDevicePosition}>
       <View>
-        {/* <TouchableOpacity disabled={!isCorrectDevicePosition} onPress={()=>capturePhoto(15)} style={styles.button(isCorrectDevicePosition)}>
-          <Image style={styles.capture} source={cameraButtonURL} />
-        </TouchableOpacity> */}
         <CountdownTimer capturePhoto={capturePhoto} disabled={!isCorrectDevicePosition} device='front'/>
       </View>
     </CameraPreview>
   );
 }
 
-CameraFrontScreen.propTypes = {
+CameraFront.propTypes = {
   navigation: PropTypes.object.isRequired,
 };
 
-export default memo(CameraFrontScreen);
+export default memo(CameraFront);
