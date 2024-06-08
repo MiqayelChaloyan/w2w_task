@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import { useRef, useCallback, memo, useState, useEffect } from 'react';
 import { Image, View } from 'react-native';
 
+import Toast from 'react-native-simple-toast';
+
 import { useSelector } from 'react-redux';
 
 import CameraPreview from '../../components/camera';
@@ -11,7 +13,7 @@ import ErrorModal from '../../components/modal';
 
 import { sendDataToServer } from '../../utils';
 
-import { ImagePaths, PageName } from '../../constans';
+import { ImagePaths, PageName, ToastTexts } from '../../constans';
 
 import styles from './style';
 
@@ -68,6 +70,7 @@ function CameraSide({ navigation, route }) {
         navigation={navigation}
       />
       {isLoading && <Loading />}
+      {isDrawingOrder && Toast.showWithGravity(ToastTexts.sidePhoto, Toast.SHORT, Toast.BOTTOM)}
       {
         isDrawingOrder && (
           <View style={styles.drawingOrder}>

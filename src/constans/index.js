@@ -89,13 +89,13 @@ const ImagePaths = {
     femaleFront: require('../assets/images/female/front.png'),
     devicePosition: require('../assets/images/devicePosition.png'),
     goButton: require('../assets/images/button.png'),
-
     front: require('../assets/images/hourglassFront.png'),
     profile: require('../assets/images/hourglassProfile.png'),
     ring: require('../assets/images/Ring.png'),
     degree: require('../assets/images/Degree.png'),
     frontLook: require('../assets/images/Hourglass2.png'),
-    sideLook:  require('../assets/images/Hourglass.png')
+    sideLook:  require('../assets/images/Hourglass.png'),
+    arrow: require('../assets/images/Arrow.png')
 };
 
 // const Hosts = {
@@ -120,6 +120,8 @@ const Typeof = {
 
 const ToastTexts = {
     HeightNonEmpty: 'Height can not be empty',
+    positionCamera: 'Hold your phone vertically until the frame turns green',
+    sidePhoto: 'Turn left for a side photo'
 };
 
 const GeneralTexts = {

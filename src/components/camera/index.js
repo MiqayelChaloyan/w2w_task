@@ -32,6 +32,7 @@ function CameraPreview({ children, camera, pictureForm, handleCorrectDevicePosit
         return null
     };
 
+
     return device && (
         <>
             <StatusBar barStyle="light-content" backgroundColor="transparent" translucent={true} />

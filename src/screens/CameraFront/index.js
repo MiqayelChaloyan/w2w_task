@@ -1,14 +1,15 @@
 import PropTypes from 'prop-types';
-import { useRef, useCallback, memo, useState } from 'react';
-
+import { useRef, useCallback, memo, useState, useEffect } from 'react';
 import { View } from 'react-native';
+
+import Toast from 'react-native-simple-toast';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { addValue } from '../../store/stateSlice';
 
 import CameraPreview from '../../components/camera';
 import CountdownTimer from '../../components/countdownTimer';
-import { PageName } from '../../constans';
+import { PageName, ToastTexts } from '../../constans';
 
 
 function CameraFront({ navigation }) {
@@ -21,12 +22,12 @@ function CameraFront({ navigation }) {
   const capturePhoto = useCallback(async (timer) => {
     if (camera.current !== null) {
       const photo = await camera.current.takePhoto({});
-      dispatch(addValue({ ...state, front: 'file://' + photo.path  }));
+      dispatch(addValue({ ...state, front: 'file://' + photo.path }));
 
       return navigation.navigate({
         name: PageName.cameraSide,
         params: { timer },
-    });
+      });
     }
   }, []);
 
@@ -34,10 +35,21 @@ function CameraFront({ navigation }) {
     setIsCorrectDevicePosition(deg90 && portrait)
   };
 
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(false);
+    }, 4000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <CameraPreview camera={camera} pictureForm='Front photo' handleCorrectDevicePosition={handleCorrectDevicePosition}>
+      {isVisible && Toast.showWithGravity(ToastTexts.positionCamera, Toast.SHORT, Toast.BOTTOM)}
       <View>
-        <CountdownTimer capturePhoto={capturePhoto} disabled={!isCorrectDevicePosition} device='front'/>
+        <CountdownTimer capturePhoto={capturePhoto} disabled={!isCorrectDevicePosition} device='front' />
       </View>
     </CameraPreview>
   );
