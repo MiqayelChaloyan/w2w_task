@@ -1,4 +1,6 @@
-import { Platform } from "react-native";
+import { NativeModules, Platform } from "react-native";
+
+
 
 import { RFValue } from "react-native-responsive-fontsize";
 
@@ -142,7 +144,7 @@ const PlatformType = {
 }
 
 const DEVICE_SETTINGS = {
-    statusBarHeight: Platform.OS === PlatformType.ios ? StatusBarManager.HEIGHT : 0,
+    statusBarHeight: Platform.OS === PlatformType.ios ? NativeModules.StatusBarManager.HEIGHT : 0,
     isAndroid: Platform.OS === PlatformType.android,
 }
 

@@ -32,7 +32,7 @@ function ScannedScreen({ navigation, route }) {
             <View style={styles.contain}>
                 <Image source={imageSource} style={styles.averageFemaleBodyURL} />
                 <Ring
-                    value={shoulder}
+                    value={Math.round(shoulder)}
                     label="Shoulders"
                     ringURLStyle={styles.shoulderRingURL}
                     ringContainer={styles.shoulder}
@@ -40,7 +40,7 @@ function ScannedScreen({ navigation, route }) {
                     ringText={styles.shoulderText}
                 />
                 <Ring
-                    value={waist}
+                    value={Math.round(waist)}
                     label="Waist"
                     ringURLStyle={styles.waistRingURL}
                     ringContainer={styles.waist}
@@ -48,7 +48,7 @@ function ScannedScreen({ navigation, route }) {
                     ringText={styles.waistText}
                 />
                 <Ring
-                    value={hip}
+                    value={Math.round(hip)}
                     label="Hips"
                     ringURLStyle={styles.hipRingURL}
                     ringContainer={styles.hip}
