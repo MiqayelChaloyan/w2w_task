@@ -22,6 +22,18 @@ const DataInputWidget = ({
     onChangeText,
     measurements
 }) => {
+
+    const handleChange = (text, label) => {
+        // Replace commas with dots
+        const newValue = text.replace(/,/g, '.');
+        // Validate input to allow only numbers and a single dot
+        const regex = /^\d*\.?\d*$/;
+        if (regex.test(newValue)) {
+            onChangeText(newValue,label )
+        }
+    };
+
+
     return (
         <Modal
             animationOutTiming={300}
@@ -41,7 +53,7 @@ const DataInputWidget = ({
                 <View style={styles.inputContainer}>
                     <TextInput
                         style={styles.input}
-                        onChangeText={(value) => onChangeText(value, label)}
+                        onChangeText={(value) => handleChange(value, label)}
                         value={measurements[label.toLowerCase()]}
                         placeholder={label}
                         keyboardType="numeric"

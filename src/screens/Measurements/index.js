@@ -74,8 +74,8 @@ function Measurements({ navigation }) {
                         {GeneralTexts.measurementsTitle}
                     </Text>
                     <ToggleButton
-                        rightText='ft in'
-                        leftText='cm'
+                        rightText='cm'
+                        leftText='ft in'
                         width={horizontalScale(98)}
                         handleChange={handleChangeMeasurement}
                         value1={unitOfMeasurement}

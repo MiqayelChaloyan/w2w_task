@@ -16,7 +16,6 @@ const CountdownTimer = ({ capturePhoto, disabled, device, timer: frontTimer }) =
     }
 
     useEffect(() => {
-        console.log("========", frontTimer);
         let timeoutId = null
         if (device !== 'front' && timeLeft == null) {
              timeoutId = setTimeout(() => {

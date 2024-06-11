@@ -1,1 +1,1 @@
-export const API_URL = 'https://w2w-api2-249ac671cbe5.herokuapp.com/bmt?height=';
+export const API_URL = 'https://w2w-api-425812.nw.r.appspot.com/bmt';
