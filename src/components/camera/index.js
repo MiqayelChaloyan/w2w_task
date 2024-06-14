@@ -10,7 +10,7 @@ import styles from './style';
 
 function CameraPreview({ children, camera, pictureForm, handleCorrectDevicePosition }) {
     const devices = useCameraDevices();
-    const device = devices.front;
+    const device = devices.back;
     const [isCorrectDevicePosition, setIsCorrectDevicePosition] = useState(true);
 
     setUpdateIntervalForType(SensorTypes.accelerometer, 500);
